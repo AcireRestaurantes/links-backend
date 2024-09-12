@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: ryck_links
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: k93@sdjfK$w1!29Dflxw!
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - django_network
+
+  web:
+    build: .
+    command: gunicorn projeto_django.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    volumes:
+      - ./LinksBackend:/app
+      - media:/app/media
+      - static:/app/static
+    expose:
+      - "8000"
+    environment:
+      - DEBUG=1
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=5432
+      - DJANGO_DB_NAME=ryck_links
+      - DJANGO_DB_USER=postgres
+      - DJANGO_DB_PASSWORD=k93@sdjfK$w1!29Dflxw!
+    depends_on:
+      - db
+    networks:
+      - django_network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - static:/app/static
+    depends_on:
+      - web
+    networks:
+      - django_network
+
+networks:
+  django_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  media:
+  static:
