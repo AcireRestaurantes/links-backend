@@ -3,7 +3,7 @@ from .models import UserProfile
 from Links.serializers import LinkSerializer
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    links = LinkSerializer(many=True, read_only=True)
+    links = LinkSerializer(many=True)
 
     class Meta:
         model = UserProfile

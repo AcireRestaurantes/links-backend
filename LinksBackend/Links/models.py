@@ -1,9 +1,9 @@
 from django.db import models
-from Profile.models import UserProfile
+from django.contrib.auth.models import User
 
 
 class Link(models.Model):
-    profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="links")
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     url = models.URLField(max_length=500)
     text = models.CharField(max_length=100)
 

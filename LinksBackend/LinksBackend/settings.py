@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
+    'django_filters',
     'corsheaders',
     'Profile',
+    'Users',
     'Links',
 ]
 
@@ -57,7 +59,7 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),  # Tempo de validade do token de acesso
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # Tempo de validade do token de refresh
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=20),  # Tempo de validade do token de refresh
     'ROTATE_REFRESH_TOKENS': True,  # Trocar o refresh token após cada uso
     'BLACKLIST_AFTER_ROTATION': True,  # Colocar os tokens de refresh usados na blacklist
     'AUTH_HEADER_TYPES': ('Bearer',),  # Usar o tipo Bearer para o cabeçalho
@@ -78,6 +80,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://192.168.31.91:5173",
     "http://172.26.0.1:5173",
+    "http://172.0.0.1:5173",
+    "http://localhost:5174",
+    "http://192.168.31.91:5174",
+    "http://172.26.0.1:5174",
+    "http://172.0.0.1:5174",
+    "http://localhost:5175",
 ]
 
 ROOT_URLCONF = 'LinksBackend.urls'

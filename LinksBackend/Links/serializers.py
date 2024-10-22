@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Link
+from Links.models import Link
 
 class LinkSerializer(serializers.ModelSerializer):
     class Meta:
